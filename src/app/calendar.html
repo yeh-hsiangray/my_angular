@@ -1,0 +1,40 @@
+<div>
+    <h2 style="text-align:center;">
+        {{calendarDate | date:"yyyy/MM/dd HH:mm:ss"}}
+    </h2>
+    <table class="table table-striped">
+        <thead>
+            <tr class="table-info">
+                <th>時間</th>
+                <th>代辦事項</th>
+                <th>刪除</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let todo of affairs;let number = index">
+                <td *ngIf="affairs[number].work!=''">{{todo.workDate}}</td>
+                <td *ngIf="affairs[number].work!=''">{{todo.work}}</td>
+                <td *ngIf="affairs[number].work!=''"><button type="button" (click)="delete(number)">刪除</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <form  #calendarForm="ngForm">
+        <div class="form-group row g-3">
+                <label for="workDate">時間</label>
+                <input class="form-control" type="time" id="workDate" [(ngModel)]='work.workDate' name="workDate"
+                    required #workDate="ngModel">
+                <div class="alert alert-danger" *ngIf="workDate.touched && !workDate.valid">請填寫時間</div>
+            <br>
+            <label for="newWork">事項</label>
+            <input class="form-control" type="text" id="newWork" [(ngModel)]='work.work' name="newWork" required
+                #newWork="ngModel">
+            <div class="alert alert-danger" *ngIf="newWork.touched && !newWork.valid">請填寫事項</div>
+            <br>
+            <button class="btn btn-primary" type="button" (click)="add(calendarForm)"
+                [disabled]="!calendarForm.form.valid">新增事務</button>
+            <br>
+            <button class="btn btn-primary" type="button" (click)="save()">儲存</button>
+        </div>
+    </form>
+
+</div>
